@@ -48,7 +48,7 @@ public class Main {
         }
 
         // 4. 寻找合适的前驱、后继
-        Node[] ans = new Node[a.length];
+        int[] ans = new int[a.length];
 
         for (int i = a.length - 1; i > 0; i--) {
             Node cur = pos[i];
@@ -56,9 +56,9 @@ public class Main {
             int nextDiff = Math.abs(cur.val - cur.next.val);
 
             if (preDiff <= nextDiff) {
-                ans[i] = cur.pre;
+                ans[i] = cur.pre.idx;
             } else {
-                ans[i] = cur.next;
+                ans[i] = cur.next.idx;
             }
 
             deleteNode(cur);
@@ -66,7 +66,7 @@ public class Main {
 
         // 5. 输出结果
         for (int i = 1; i < a.length; i++) {
-            System.out.println(String.format("%d %d", Math.abs(ans[i].val - a[i]), ans[i].idx + 1));
+            System.out.println(String.format("%d %d", Math.abs(a[ans[i]] - a[i]), ans[i] + 1));
         }
     }
 
