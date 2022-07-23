@@ -1,6 +1,7 @@
 package w1.acwing138_find_neighbour;
 
 import java.util.Comparator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
@@ -13,21 +14,21 @@ public class Main {
 
     public static void main(String[] args) {
         // 1. 读取输入
-        Scanner scanner = new Scanner(System.in);
+//        Scanner scanner = new Scanner(System.in);
+//
+//        int n = scanner.nextInt();
+//
+//        int[] a = new int[n];
+//
+//        for (int i = 0; i < n; i++) {
+//            a[i] = scanner.nextInt();
+//        }
 
-        int n = scanner.nextInt();
-
-        int[] a = new int[n];
-
-        for (int i = 0; i < n; i++) {
-            a[i] = scanner.nextInt();
-        }
-
-//        int[] a = {1, 5, 3};
+        int[] a = {1, 5, 3};
 
         // 2. 保存排序后的节点数组
         List<Node> nodes = IntStream.range(0, a.length).mapToObj(i -> new Node(a[i], i)).sorted(
-                Comparator.comparingInt(o -> o.val)).collect(Collectors.toList());
+                Comparator.comparingInt(o -> o.val)).collect(Collectors.toCollection(LinkedList::new));
 
         Node[] pos = new Node[a.length];
 
@@ -52,8 +53,8 @@ public class Main {
 
         for (int i = a.length - 1; i > 0; i--) {
             Node cur = pos[i];
-            int preDiff = Math.abs(cur.pre.val - cur.val);
-            int nextDiff = Math.abs(cur.val - cur.next.val);
+            int preDiff = cur.val - cur.pre.val;
+            int nextDiff = cur.next.val - cur.val;
 
             if (preDiff <= nextDiff) {
                 ans[i] = cur.pre.idx;
