@@ -206,5 +206,13 @@ public class MyMap {
         System.out.println("get simi:" + map.get("simi"));
 
         System.out.println("contains lifei? " + map.containsKey("lifei"));
+
+        map.put("simi", 7);
+
+        System.out.println("map.put(\"simi\", 7)");
+
+        System.out.println(map);
+
+        System.out.println("get simi:" + map.get("simi"));
     }
 }
