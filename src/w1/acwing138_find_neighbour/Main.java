@@ -14,17 +14,17 @@ public class Main {
 
     public static void main(String[] args) {
         // 1. 读取输入
-//        Scanner scanner = new Scanner(System.in);
-//
-//        int n = scanner.nextInt();
-//
-//        int[] a = new int[n];
-//
-//        for (int i = 0; i < n; i++) {
-//            a[i] = scanner.nextInt();
-//        }
+        Scanner scanner = new Scanner(System.in);
 
-        int[] a = {1, 5, 3};
+        int n = scanner.nextInt();
+
+        int[] a = new int[n];
+
+        for (int i = 0; i < n; i++) {
+            a[i] = scanner.nextInt();
+        }
+
+//        int[] a = {1, 5, 3};
 
         // 2. 保存排序后的节点数组
         List<Node> nodes = IntStream.range(0, a.length).mapToObj(i -> new Node(a[i], i)).sorted(
