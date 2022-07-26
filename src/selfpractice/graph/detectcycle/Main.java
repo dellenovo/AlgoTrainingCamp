@@ -1,4 +1,4 @@
-package w2.interview.detectcycle;
+package selfpractice.graph.detectcycle;
 
 import java.util.*;
 import java.util.stream.Collectors;
