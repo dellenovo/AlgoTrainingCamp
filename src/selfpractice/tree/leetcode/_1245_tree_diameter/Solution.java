@@ -22,7 +22,7 @@ public class Solution {
         n++;
 //        System.out.println("n:" + n);
 
-        //2. convert tree to an out array
+        //2. convert tree to an out-edge array 出边数组
         List[] out = new List[n];
         for (int i = 0; i < n; i++) {
             out[i] = new LinkedList<>();
@@ -31,6 +31,7 @@ public class Solution {
         for (int i = 0; i < tree.length; i++) {
             int x = tree[i][0];
             int y = tree[i][1];
+            // remember to add edges for both direction
             out[x].add(y);
             out[y].add(x);
         }
@@ -39,7 +40,7 @@ public class Solution {
 
         //3. BFS from the first node to find the furthest node P
         // DFS
-        NodeInfo pNodeInfo = dfs(out, 0);
+        NodeInfo pNodeInfo = bfs(out, 0);
 
         //4. BFS from the node P to find the furthest node
         // DFS
@@ -48,11 +49,17 @@ public class Solution {
 
     private static NodeInfo dfs(List<Integer>[] out, int seq) {
         int[] depths = new int[out.length];
+        //a quick way to fill arrays
+        //Why must the initail value be -1?
+        //Because we use -1 as a mark of not being visited yet.
         Arrays.fill(depths, -1);
+        //the depth of the start node is 0
         depths[seq] = 0;
+        //start dfs recursion
         dfs(out, depths, seq, 0);
 
         //compare and try to replace the max depth
+        //We only need to save the index of the max value, don't need to save the max value itself.
         int ans = 0;
         for (int i = 1; i < depths.length; i++) {
             if (depths[ans] < depths[i]) ans = i;
@@ -62,33 +69,28 @@ public class Solution {
     }
 
     private static void dfs(List<Integer>[] out, int[] depths, int seq, int curdepth) {
-//        if (out[seq].size() == 0 || allVisited(out, depths, seq)) return;
+        // There seems no obvious termination condition in the recursion. Why?
+        // Because finally all nodes will be visited, so the following for-loop will be skipped.
+
         // dfs the tree from node seq
+        // save the node's depth in depths array
         depths[seq] = curdepth;
 
         //increase and record depth until the end
         for (int i: out[seq]) {
+            //If the node is visited, skip it.
             if (depths[i] != -1) continue;
+            //As we dive into the next-level node, the depth increases by 1.
             dfs(out, depths, i, curdepth + 1);
         }
 
     }
 
-//    private static boolean allVisited(List<Integer>[] out, int[] depth, int seq) {
-//        for (int child: out[seq]) {
-//            if (depth[child] == -1) return false;
-//        }
-//        return true;
-//    }
-
     private static NodeInfo bfs(List<Integer>[] out, int seq) {
 //        System.out.println("start with " + seq);
         int n = out.length;
         int[] depths = new int[n];
-        for (int i = 0; i < n; i++) {
-            depths[i] = -1;
-        }
-
+        Arrays.fill(depths, -1);
         Queue<Integer> q = new LinkedList<>();
         depths[seq] = 0;
         q.add(seq);
@@ -99,6 +101,7 @@ public class Solution {
 
             for (Integer y: out[node]) {
                 if (depths[y] != -1) continue;
+                // the depth of y is the depth of its parent adding 1
                 depths[y] = depths[node] + 1;
                 q.add(y);
             }
