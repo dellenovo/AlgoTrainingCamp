@@ -8,23 +8,23 @@ public class Solution {
         if (list2 == null) return list1;
 
         ListNode protect = new ListNode();
-        ListNode current = protect, up = list1, down = list2;
+        ListNode current = protect;
 
-        while (up != null && down != null) {
+        while (list1 != null && list2 != null) {
 
-            if (up.val <= down.val) {
-                current.next = up;
-                up = up.next;
+            if (list1.val.compareTo(list2.val) <= 0) {
+                current.next = list1;
+                list1 = list1.next;
             } else {
-                current.next = down;
-                down = down.next;
+                current.next = list2;
+                list2 = list2.next;
             }
 
             current = current.next;
         }
 
-        if (up != null) current.next = up;
-        if (down != null) current.next = down;
+        if (list1 != null) current.next = list1;
+        if (list2 != null) current.next = list2;
 
         return protect.next;
     }

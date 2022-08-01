@@ -20,7 +20,7 @@ public class Mergesort {
     }
 
     public static void mergesort(int[] array) {
-        mergesortEx3(array, 0, array.length);
+        mergesortEx2(array, 0, array.length);
     }
 
     private static void mergesort(int[] array, int start, int end) {
@@ -48,10 +48,12 @@ public class Mergesort {
 
         while (j < m) {
             //记得要移动指针
+            //记得要移动指针，这是重复犯错了，切记切记！
             t[i++] = array[j++];
         }
 
         while (k < end) {
+            //记得要移动指针
             //记得要移动指针
             t[i++] = array[k++];
         }
@@ -67,8 +69,8 @@ public class Mergesort {
         if (end <= start + 1) return;
         int m = start + (end - start) / 2;
 
-        mergesort(array, start, m);
-        mergesort(array, m, end);
+        mergesortNoComment(array, start, m);
+        mergesortNoComment(array, m, end);
 
         int[] t = new int[end - start];
         int i = 0, j = start, k = m;
@@ -122,7 +124,7 @@ public class Mergesort {
     }
 
     private static void mergesortEx2(int[] array, int start, int end) {
-        if (end <= start + 1) return;
+        if (start + 1 >= end) return;
 
         int m = start + (end - start)/2;
 
@@ -134,7 +136,7 @@ public class Mergesort {
         int i = 0, j = start, k = m;
 
         while (j < m && k < end) {
-            if (array[j] <= array[k]) {
+            if (array[j] <= array[k] ) {
                 t[i++] = array[j++];
             } else {
                 t[i++] = array[k++];
@@ -142,41 +144,8 @@ public class Mergesort {
         }
 
         while (j < m) t[i++] = array[j++];
-
         while (k < end) t[i++] = array[k++];
 
-        System.arraycopy(t, 0, array, start, end - start);
-    }
-
-    public static void mergesortEx3(int[] array, int start, int end) {
-        if (end <= start + 1) return;
-
-        int m = start + (end - start)/2;
-
-        mergesortEx3(array, start, m);
-
-        mergesortEx3(array, m, end);
-
-        int[] t = new int[end - start];
-
-        int i = 0, j = start, k = m;
-
-        while (j < m && k < end) {
-            if (array[j] <= array[k]) {
-                t[i++] = array[j++];
-            } else {
-                t[i++] = array[k++];
-            }
-        }
-
-        while (j < m) {
-            t[i++] = array[j++];
-        }
-
-        while (k < end) {
-            t[i++] = array[k++];
-        }
-
-        System.arraycopy(t, 0, array, start, end - start);
+        System.arraycopy(t, 0, array, start, t.length);
     }
 }

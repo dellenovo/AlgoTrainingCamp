@@ -25,7 +25,7 @@ public class Solution {
         ListNode cur = protect;
 
         while (a != null && b != null) {
-            if (a.val <= b.val) {
+            if (a.val.compareTo(b.val) <= 0) {
                 cur.next = a;
                 cur = cur.next;
                 a = a.next;

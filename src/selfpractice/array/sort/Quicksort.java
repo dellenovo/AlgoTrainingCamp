@@ -80,6 +80,7 @@ public class Quicksort {
 
         array[left] = pivot;
 
+        //不要忘记递归，并且分界点传的应该是left,不要错误的传成了pivot了。
         quicksort(array, start, left);
         quicksort(array, left + 1, end);
     }
@@ -103,8 +104,8 @@ public class Quicksort {
 
         array[left] = pivot;
 
-        quicksort(array, start, left);
-        quicksort(array, left + 1, end);
+        quicksortNoComment(array, start, left);
+        quicksortNoComment(array, left + 1, end);
     }
 
     private static void quicksortEx(int[] array, int start, int end) {
@@ -131,25 +132,23 @@ public class Quicksort {
     }
 
     private static void quicksortEx2(int[] array, int start, int end) {
-        if (end <= start) return;
+        if (start + 1 >= end) return;
 
-        int low = start, high = end - 1;
         int pivot = array[start];
 
-        while (low < high) {
-            while (low < high && array[high] >= pivot) high--;
+        int l = start, r = end - 1;
 
-            array[low] = array[high];
+        while (l < r) {
+            while (l < r && array[r] >= pivot) r--;
+            array[l] = array[r];
 
-            while (low < high && array[low] <= pivot) low++;
-
-            array[high] = array[low];
+            while (l < r && array[l] <= pivot) l++;
+            array[r] = array[l];
         }
+        array[l] = pivot;
 
-        array[low] = pivot;
-
-        quicksortEx2(array, start, low);
-        quicksortEx2(array, low + 1, end);
+        quicksortEx2(array, start, l);
+        quicksortEx2(array, l + 1, end);
     }
 
 }

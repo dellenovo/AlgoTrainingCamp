@@ -14,7 +14,7 @@ public class Selectsort {
         };
 
         for (int[] a: as){
-            selectsortEx2(a);
+            selectsort(a);
             System.out.println(Arrays.toString(a));
         }
     }
@@ -23,17 +23,21 @@ public class Selectsort {
         for (int i = 0; i < array.length; i++) {
             //注意minVal的初始值就选择本次循环开始的首个元素,并且在每次外层循环开始时都要初始化。
             //如果首个元素刚好就是最小元素，也没关系下面的循环体找不到比首元素小的数，于是minIndex不变，后面就是自己和自己交换一下。
-            int minVal = array[i], minIndex = i;
+            int minIndex = i;
             for (int j = i + 1; j < array.length; j++) {
-                if (array[j] < minVal) {
-                    minVal = array[j];
+                if (array[j] < array[minIndex]) {
                     minIndex = j;
                 }
             }
 
-            array[minIndex] = array[i];
-            array[i] = minVal;
+            swap(array, i, minIndex);
         }
+    }
+
+    private static void swap(int[] array, int i, int j) {
+        int t = array[i];
+        array[i] = array[j];
+        array[j] = t;
     }
 
     public static void selectsortNoComment(int[] array) {
