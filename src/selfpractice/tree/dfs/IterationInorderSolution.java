@@ -1,6 +1,6 @@
 package selfpractice.tree.dfs;
 
-import domain.TreeNode;
+import domain.GenericTreeNode;
 import util.TreeBuilder;
 
 import java.util.ArrayDeque;
@@ -18,15 +18,15 @@ public class IterationInorderSolution {
      * @return
      * @param <T>
      */
-    public static <T> List<T> dfsInorder(TreeNode<T> root) {
+    public static <T> List<T> dfsInorder(GenericTreeNode<T> root) {
         List<T> ans = new LinkedList<>();
 
         if (root == null) return ans;
 
-        Deque<TreeNode> stack = new ArrayDeque<>();
+        Deque<GenericTreeNode> stack = new ArrayDeque<>();
         stack.push(root);
 
-        TreeNode<T> cur = root.left;
+        GenericTreeNode<T> cur = root.left;
 
         while (cur != null || !stack.isEmpty()) {
             if (cur != null) {
@@ -48,17 +48,17 @@ public class IterationInorderSolution {
      * @return
      * @param <T>
      */
-    public static <T> List<T> dfsInorder2(TreeNode<T> root) {
+    public static <T> List<T> dfsInorder2(GenericTreeNode<T> root) {
         List<T> ans = new LinkedList<>();
 
         if (root == null) return ans;
 
-        TreeNode<T> NULL_NODE = new TreeNode<>(null);
-        Deque<TreeNode> stack = new ArrayDeque<>();
+        GenericTreeNode<T> NULL_NODE = new GenericTreeNode<>(null);
+        Deque<GenericTreeNode> stack = new ArrayDeque<>();
         stack.push(root);
 
         while (!stack.isEmpty()) {
-            TreeNode<T> cur = stack.pop();
+            GenericTreeNode<T> cur = stack.pop();
 
             if (cur == NULL_NODE) {
                 cur = stack.pop();
@@ -75,7 +75,7 @@ public class IterationInorderSolution {
     }
 
     public static void main(String[] args) {
-        TreeNode<Integer> root = TreeBuilder.buildFromBFS(new Integer[]{1, 3, 2, null, null, null, 4});
+        GenericTreeNode<Integer> root = TreeBuilder.buildFromBFS(new Integer[]{1, 3, 2, null, null, null, 4});
         List<Integer> ans = dfsInorder2(root);
 
         for(Integer i : ans) {

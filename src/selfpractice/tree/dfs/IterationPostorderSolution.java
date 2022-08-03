@@ -1,6 +1,6 @@
 package selfpractice.tree.dfs;
 
-import domain.TreeNode;
+import domain.GenericTreeNode;
 import util.TreeBuilder;
 
 import java.util.*;
@@ -12,18 +12,18 @@ public class IterationPostorderSolution {
      * @return
      * @param <T>
      */
-    public static <T> List<T> dfsPostorder(TreeNode<T> node) {
+    public static <T> List<T> dfsPostorder(GenericTreeNode<T> node) {
         List<T> ans = new LinkedList<>();
 
         if (node == null) return ans;
 
-        TreeNode NULL_NODE = new TreeNode(null);
+        GenericTreeNode NULL_NODE = new GenericTreeNode(null);
 
-        Deque<TreeNode> stack = new ArrayDeque<>();
+        Deque<GenericTreeNode> stack = new ArrayDeque<>();
         stack.push(node);
 
         while (!stack.isEmpty()) {
-            TreeNode<T> cur = stack.pop();
+            GenericTreeNode<T> cur = stack.pop();
 
             if (cur == NULL_NODE) {
                 cur = stack.pop();
@@ -45,16 +45,16 @@ public class IterationPostorderSolution {
      * @return
      * @param <T>
      */
-    public static <T> List<T> dfsPostOrder2(TreeNode<T> root) {
+    public static <T> List<T> dfsPostOrder2(GenericTreeNode<T> root) {
         List<T> ans = new ArrayList<>();
         if (root == null) return ans;
 
-        Set<TreeNode> visited = new HashSet<>();
-        Deque<TreeNode> stack = new ArrayDeque<>();
+        Set<GenericTreeNode> visited = new HashSet<>();
+        Deque<GenericTreeNode> stack = new ArrayDeque<>();
         stack.push(root);
 
         while (!stack.isEmpty()) {
-            TreeNode<T> node = stack.pop();
+            GenericTreeNode<T> node = stack.pop();
 
             if (visited.contains(node)) {
                 ans.add(node.val);
@@ -75,16 +75,16 @@ public class IterationPostorderSolution {
      * @return
      * @param <T>
      */
-    public static <T> List<T> dfsPostOrder3(TreeNode<T> root) {
+    public static <T> List<T> dfsPostOrder3(GenericTreeNode<T> root) {
         List<T> ans = new LinkedList<>();
 
         if (root == null) return ans;
 
-        Deque<TreeNode> stack = new ArrayDeque<>();
+        Deque<GenericTreeNode> stack = new ArrayDeque<>();
         stack.push(root);
 
         while (!stack.isEmpty()) {
-            TreeNode<T> cur = stack.pop();
+            GenericTreeNode<T> cur = stack.pop();
 
             ans.add(cur.val);
             //Pay attention: push & add. If the deque is a stack, remember only to use push & pop.
@@ -103,7 +103,7 @@ public class IterationPostorderSolution {
     }
 
     public static void main(String[] args) {
-        TreeNode<Integer> root = TreeBuilder.buildFromBFS(new Integer[]{1, 3, 2, null, null, null, 4});
+        GenericTreeNode<Integer> root = TreeBuilder.buildFromBFS(new Integer[]{1, 3, 2, null, null, null, 4});
         List<Integer> ans = dfsPostOrder2(root);
 
         for(Integer i : ans) {

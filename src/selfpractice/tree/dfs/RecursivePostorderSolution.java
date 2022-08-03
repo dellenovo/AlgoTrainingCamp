@@ -1,6 +1,6 @@
 package selfpractice.tree.dfs;
 
-import domain.TreeNode;
+import domain.GenericTreeNode;
 import util.TreeBuilder;
 
 import java.util.LinkedList;
@@ -8,7 +8,7 @@ import java.util.List;
 
 public class RecursivePostorderSolution {
 
-    public static <T> void dfsPostorder(TreeNode<T> node, List<T> ans) {
+    public static <T> void dfsPostorder(GenericTreeNode<T> node, List<T> ans) {
         if (node == null) return;
         dfsPostorder(node.left, ans);
         dfsPostorder(node.right, ans);
@@ -16,7 +16,7 @@ public class RecursivePostorderSolution {
     }
 
     public static void main(String[] args) {
-        TreeNode<Integer> root = TreeBuilder.buildFromBFS(new Integer[]{1, 3, 2, null, null, null, 4});
+        GenericTreeNode<Integer> root = TreeBuilder.buildFromBFS(new Integer[]{1, 3, 2, null, null, null, 4});
         List<Integer> ans = new LinkedList<>();
         dfsPostorder(root, ans);
 

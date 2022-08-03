@@ -1,17 +1,17 @@
 package util;
 
-import domain.TreeNode;
+import domain.GenericTreeNode;
 
 import java.util.LinkedList;
 import java.util.Queue;
 
 public class TreeBuilder {
-    public static <T extends Comparable<T>> TreeNode<T> buildFromBFS(T[] nodes) {
+    public static <T extends Comparable<T>> GenericTreeNode<T> buildFromBFS(T[] nodes) {
         if (nodes == null || nodes.length == 0 || nodes[0] == null) return null;
         
-        TreeNode<T> root = new TreeNode<>(nodes[0]);
+        GenericTreeNode<T> root = new GenericTreeNode<>(nodes[0]);
         
-        Queue<TreeNode<T>> queue = new LinkedList<>();
+        Queue<GenericTreeNode<T>> queue = new LinkedList<>();
         queue.add(root);
         
         int pos = 1;
@@ -19,17 +19,17 @@ public class TreeBuilder {
             int size = queue.size();
             
             for (int i = 0; i < size; i++) {
-                TreeNode<T> parent = queue.remove();
+                GenericTreeNode<T> parent = queue.remove();
                 if ( pos < nodes.length) {
                     if (nodes[pos] != null) {
-                        parent.left = new TreeNode<>(nodes[pos]);
+                        parent.left = new GenericTreeNode<>(nodes[pos]);
                         queue.add(parent.left);
                     }
                     pos++;
                 }
                 if (pos < nodes.length) {
                     if (nodes[pos] != null){
-                        parent.right = new TreeNode<>(nodes[pos]);
+                        parent.right = new GenericTreeNode<>(nodes[pos]);
                         queue.add(parent.right);
                     }
                     pos++;
@@ -49,7 +49,7 @@ public class TreeBuilder {
         };
 
         for (Integer[] tree: trees) {
-            TreeNode<Integer> root = buildFromBFS(tree);
+            GenericTreeNode<Integer> root = buildFromBFS(tree);
             System.out.println(root);
         }
     }
