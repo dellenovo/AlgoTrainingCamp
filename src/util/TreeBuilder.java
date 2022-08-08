@@ -1,6 +1,7 @@
 package util;
 
 import domain.GenericTreeNode;
+import domain.TreeNode;
 
 import java.util.LinkedList;
 import java.util.Queue;
@@ -30,6 +31,40 @@ public class TreeBuilder {
                 if (pos < nodes.length) {
                     if (nodes[pos] != null){
                         parent.right = new GenericTreeNode<>(nodes[pos]);
+                        queue.add(parent.right);
+                    }
+                    pos++;
+                }
+            }
+        }
+
+        return root;
+    }
+
+    public static TreeNode buildIntegerTreeFromBFS(Integer[] nodes) {
+        if (nodes == null || nodes.length == 0 || nodes[0] == null) return null;
+
+        TreeNode root = new TreeNode(nodes[0]);
+
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+
+        int pos = 1;
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+
+            for (int i = 0; i < size; i++) {
+                TreeNode parent = queue.remove();
+                if ( pos < nodes.length) {
+                    if (nodes[pos] != null) {
+                        parent.left = new TreeNode(nodes[pos]);
+                        queue.add(parent.left);
+                    }
+                    pos++;
+                }
+                if (pos < nodes.length) {
+                    if (nodes[pos] != null){
+                        parent.right = new TreeNode(nodes[pos]);
                         queue.add(parent.right);
                     }
                     pos++;

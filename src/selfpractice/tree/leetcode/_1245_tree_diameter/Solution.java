@@ -36,6 +36,12 @@ public class Solution {
             out[y].add(x);
         }
 
+        //问：这里为什么不需要找根，然后从根开始找最深节点呢？
+        //答：因为没有必要。按照证明，从任意节点出发的最长路径的端点，必然是整个树最长路径的一头。所以不需要从根出发。
+        //问：是否一定要用depths数组记录每个节点的深度？
+        //答：因为我们是用图的数据结构来表示这棵树，所以没有父子关系的体现。为了避免重复访问节点，每个节点都需要一个标记。那么正好可以用这个节点
+        //   来记录每个节点的深度。初始值为-1，表示没有被访问过。
+
 //        System.out.println("out:\n" + Arrays.toString(out));
 
         //3. BFS from the first node to find the furthest node P

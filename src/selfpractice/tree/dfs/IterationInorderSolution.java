@@ -21,12 +21,8 @@ public class IterationInorderSolution {
     public static <T> List<T> dfsInorder(GenericTreeNode<T> root) {
         List<T> ans = new LinkedList<>();
 
-        if (root == null) return ans;
-
-        Deque<GenericTreeNode> stack = new ArrayDeque<>();
-        stack.push(root);
-
-        GenericTreeNode<T> cur = root.left;
+        GenericTreeNode<T> cur = root;
+        Deque<GenericTreeNode<T>> stack = new ArrayDeque<>();
 
         while (cur != null || !stack.isEmpty()) {
             if (cur != null) {
@@ -74,9 +70,29 @@ public class IterationInorderSolution {
         return ans;
     }
 
+    public static <T> List<T> dfsInorderEx(GenericTreeNode<T> root) {
+        List<T> ans = new LinkedList<>();
+
+        GenericTreeNode<T> cur = root;
+        Deque<GenericTreeNode<T>> stack = new ArrayDeque<>();
+
+        while (cur != null || !stack.isEmpty()) {
+            if (cur != null) {
+                stack.push(cur);
+                cur = cur.left;
+            } else {
+                cur = stack.pop();
+                ans.add(cur.val);
+                cur = cur.right;
+            }
+        }
+
+        return ans;
+    }
+
     public static void main(String[] args) {
         GenericTreeNode<Integer> root = TreeBuilder.buildFromBFS(new Integer[]{1, 3, 2, null, null, null, 4});
-        List<Integer> ans = dfsInorder2(root);
+        List<Integer> ans = dfsInorder(root);
 
         for(Integer i : ans) {
             System.out.print(i + " ");

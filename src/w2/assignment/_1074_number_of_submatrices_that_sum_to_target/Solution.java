@@ -46,4 +46,19 @@ public class Solution {
 
         return count;
     }
+
+    int subArraySumEx2(int[] colsum, int target) {
+        Map<Integer, Integer> presumCount = new HashMap<>();
+        presumCount.put(0, 1);
+        int sum = 0;
+        int count = 0;
+
+        for (int i = 0; i < colsum.length; i++) {
+            sum += colsum[i];
+            count += presumCount.getOrDefault(sum - target, 0);
+            presumCount.put(sum, presumCount.getOrDefault(sum, 0) + 1);
+        }
+
+        return count;
+    }
 }
