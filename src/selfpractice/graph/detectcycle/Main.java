@@ -15,7 +15,7 @@ public class Main {
         };
 
         for (int[][] g : gs)
-            System.out.println(hasCycle(g));
+            System.out.println(hasCycle2(g));
     }
 
     public static boolean hasCycle(int[][] g) {
@@ -71,6 +71,42 @@ public class Main {
 
         for (Node child: root.children) {
             if (hasCycle(child, visited)) return true;
+        }
+
+        return false;
+    }
+
+    public static boolean hasCycle2(int[][] g) {
+        int n = 0;
+        for (int[] e : g) {
+            n = Math.max(Math.max(n, e[0]), e[1]);
+        }
+
+        List<Integer>[] to = new LinkedList[n + 1];
+
+        for (int i = 0; i < n + 1; i++) to[i] = new LinkedList<>();
+
+        boolean[] visited = new boolean[n + 1];
+
+        for (int[] e : g) {
+            int x = e[0], y = e[1];
+            to[x].add(y);
+        }
+
+        for (int i = 0; i < n + 1; i++) {
+            Arrays.fill(visited, false);
+            if (hasCycle2(i, to, visited)) return true;
+        }
+
+        return false;
+    }
+
+    static boolean hasCycle2(int start, List<Integer>[] to, boolean[] visited) {
+        visited[start] = true;
+
+        for (int next : to[start]) {
+            if (visited[next]) return true;
+            if (hasCycle2(next, to, visited)) return true;
         }
 
         return false;
