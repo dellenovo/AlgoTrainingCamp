@@ -21,7 +21,8 @@ public class Quicksort {
 
     public static void quicksort(int[] array) {
 //        quicksort(array, 0, array.length);
-        quicksortEx2(array, 0, array.length);
+//        quicksortEx2(array, 0, array.length);
+        quicksortRandomPivot(array, 0, array.length - 1);
     }
 
     private static void quicksort(int[] array, int start, int end) {
@@ -83,6 +84,50 @@ public class Quicksort {
         //不要忘记递归，并且分界点传的应该是left,不要错误的传成了pivot了。
         quicksort(array, start, left);
         quicksort(array, left + 1, end);
+    }
+
+    private static void quicksortRandomPivot(int[] nums, int l, int r) {
+        if (l >= r) return;
+
+        int pivot = l + (int)(Math.random() * (r - l + 1));
+        int pivotVal = nums[pivot];
+
+        int left = l, right = r;
+        // 这里一定要取小于等于号即left <= right, 不能写成left < right
+        // 因为当left和right指针可能是在交换后left右移一位，right左移一位后发生的。
+        // 此时right对应的数值不一定<= pivotValue的值，还需要再此进入while loop,
+        // 经过 while (nums[right] > pivotVal) right--; 的操作才能确保right指向的值确实
+        // 是小于等于pivotValue才行。不然递归左边时，所取的[l, right]可能不对，即这里面可能包含
+        // 大于pivotVal的元素。 所以这里务必要写成left <= right
+        while (left <= right) {
+//            System.out.println(String.format("before moving: left %d, right %d", left, right));
+            while (nums[left] < pivotVal) left++;
+            while (nums[right] > pivotVal) right--;
+
+//            System.out.println(String.format("after moving: left %d right %d pivot %d pivot value %d", left, right, pivot, pivotVal));
+
+            if (left == right) {
+//                System.out.println(String.format("break when equal: %d", left));
+                break;
+            }
+            //此处不能用else，因为pivotVal元素可能会被移走，移走之后，left指针是可能一路越过right指针位置的。所以要写成if (left < right)
+            if (left < right) {
+                int t = nums[left];
+                nums[left] = nums[right];
+                nums[right] = t;
+
+//                System.out.println(String.format("swapped %d at %d & %d at %d", left, nums[left], right, nums[right]));
+
+                left++;
+                right--;
+            }
+
+//            System.out.println(String.format("after %d %d %d %d", left, right, pivot, pivotVal));
+//            System.out.println(Arrays.toString(nums));
+        }
+
+        quicksortRandomPivot(nums, l, right);
+        quicksortRandomPivot(nums, right + 1, r);
     }
 
     private static void quicksortNoComment(int[] array, int start, int end) {
